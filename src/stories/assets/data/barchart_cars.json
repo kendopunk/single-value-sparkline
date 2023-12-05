@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Toyota",
+    "value": 1000
+  },
+  {
+    "name": "Ford",
+    "value": 800
+  },
+  {
+    "name": "Chevrolet",
+    "value": 650
+  },
+  {
+    "name": "Hyundai",
+    "value": 215
+  },
+  {
+    "name": "Jeep",
+    "value": 505
+  },
+  {
+    "name": "Dodge",
+    "value": 300
+  },
+  {
+    "name": "Nissan",
+    "value": 403
+  }
+]

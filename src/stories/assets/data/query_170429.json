@@ -1,0 +1,1348 @@
+{
+  "id": "22e7e2a01d646a5400461f193aefd218",
+  "truncated": true,
+  "supports_pivot_in_db": true,
+  "null_sort_treatment": "low",
+  "from_cache": true,
+  "expired": false,
+  "ran_at": "2023-05-25T20:16:07+00:00",
+  "aggregate_table_used_info": null,
+  "forecast_result": null,
+  "sql": "SELECT\n    dim_date_calendar_date,\n    dim_date_calendar_month,\n    fct_ga_channel_groupings_total_bounces\nFROM\n    (SELECT\n            (dim_date.calendar_date ) AS dim_date_calendar_date,\n            dim_date.calendar_month  AS dim_date_calendar_month,\n            COALESCE(SUM(fct_ga_channel_groupings.total_bounces ), 0) AS fct_ga_channel_groupings_total_bounces,\n            COALESCE(SUM(fct_ga_channel_groupings.total_bounces ), 0) AS fct_ga_channel_groupings_total_bounces_0\n        FROM `dbt_jbrooks.fct_ga_channel_groupings`\n     AS fct_ga_channel_groupings\nINNER JOIN `dbt_jbrooks.dim_date`\n     AS dim_date ON fct_ga_channel_groupings.visit_date = dim_date.calendar_date\n        GROUP BY\n            1,\n            2\n        HAVING fct_ga_channel_groupings_total_bounces_0 > 1500) AS t2\nORDER BY\n    1 DESC\nLIMIT 25",
+  "sql_explain": null,
+  "fields": {
+    "measures": [
+      {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "GA Facts - Channel Groupings Total Bounces",
+        "label_from_parameter": null,
+        "label_short": "Total Bounces",
+        "map_layer": null,
+        "name": "fct_ga_channel_groupings.total_bounces",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "sum",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": null,
+        "view": "fct_ga_channel_groupings",
+        "view_label": "GA Facts - Channel Groupings",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "fct_ga_channel_groupings",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Total Bounces",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_analytics",
+        "scope": "fct_ga_channel_groupings",
+        "suggest_dimension": "fct_ga_channel_groupings.total_bounces",
+        "suggest_explore": "google_analytics_channel_groupings",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_analytics/files/views%2F1_marts%2F2_marketing%2Ffct_ga_channel_groupings.view.lkml?line=121",
+        "permanent": null,
+        "source_file": "views/1_marts/2_marketing/fct_ga_channel_groupings.view.lkml",
+        "source_file_path": "4_mile_analytics/views/1_marts/2_marketing/fct_ga_channel_groupings.view.lkml",
+        "sql": "${bounces} ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      }
+    ],
+    "dimensions": [
+      {
+        "align": "left",
+        "can_filter": true,
+        "category": "dimension",
+        "default_filter_value": null,
+        "description": "The date of year (i.e. 2020-05-06)",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": "range",
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": false,
+        "label": "Calendar Dates      Calendar Date",
+        "label_from_parameter": null,
+        "label_short": "     Calendar Date",
+        "map_layer": null,
+        "name": "dim_date.calendar_date",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "date",
+        "user_attribute_filter_types": ["datetime", "advanced_filter_datetime"],
+        "value_format": null,
+        "view": "dim_date",
+        "view_label": "Calendar Dates",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "dim_date",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "     Calendar Date",
+        "measure": false,
+        "parameter": false,
+        "primary_key": true,
+        "project_name": "4_mile_analytics",
+        "scope": "dim_date",
+        "suggest_dimension": "dim_date.calendar_date",
+        "suggest_explore": "google_analytics_channel_groupings",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": true,
+        "can_time_filter": false,
+        "time_interval": {
+          "name": "day",
+          "count": 1
+        },
+        "lookml_link": "/projects/4_mile_analytics/files/views%2F1_marts%2F1_core%2Fdim_date.view.lkml?line=49",
+        "permanent": null,
+        "source_file": "views/1_marts/1_core/dim_date.view.lkml",
+        "source_file_path": "4_mile_analytics/views/1_marts/1_core/dim_date.view.lkml",
+        "sql": "${TABLE}.calendar_date ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0,
+        "sorted": {
+          "sort_index": 0,
+          "desc": true
+        }
+      },
+      {
+        "align": "left",
+        "can_filter": true,
+        "category": "dimension",
+        "default_filter_value": null,
+        "description": "The month of the year (i.e. December)",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": false,
+        "label": "Calendar Dates      Calendar Month",
+        "label_from_parameter": null,
+        "label_short": "     Calendar Month",
+        "map_layer": null,
+        "name": "dim_date.calendar_month",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "string",
+        "user_attribute_filter_types": ["string", "advanced_filter_string"],
+        "value_format": null,
+        "view": "dim_date",
+        "view_label": "Calendar Dates",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "dim_date",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "     Calendar Month",
+        "measure": false,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_analytics",
+        "scope": "dim_date",
+        "suggest_dimension": "dim_date.calendar_month",
+        "suggest_explore": "google_analytics_channel_groupings",
+        "suggestable": true,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_analytics/files/views%2F1_marts%2F1_core%2Fdim_date.view.lkml?line=58",
+        "permanent": null,
+        "source_file": "views/1_marts/1_core/dim_date.view.lkml",
+        "source_file_path": "4_mile_analytics/views/1_marts/1_core/dim_date.view.lkml",
+        "sql": "${TABLE}.calendar_month ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      }
+    ],
+    "table_calculations": [],
+    "pivots": []
+  },
+  "fill_fields": [],
+  "has_totals": false,
+  "has_row_totals": false,
+  "applied_filters": {
+    "fct_ga_channel_groupings.total_bounces": {
+      "field": {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "GA Facts - Channel Groupings Total Bounces",
+        "label_from_parameter": null,
+        "label_short": "Total Bounces",
+        "map_layer": null,
+        "name": "fct_ga_channel_groupings.total_bounces",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "sum",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": null,
+        "view": "fct_ga_channel_groupings",
+        "view_label": "GA Facts - Channel Groupings",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "fct_ga_channel_groupings",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Total Bounces",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_analytics",
+        "scope": "fct_ga_channel_groupings",
+        "suggest_dimension": "fct_ga_channel_groupings.total_bounces",
+        "suggest_explore": "google_analytics_channel_groupings",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_analytics/files/views%2F1_marts%2F2_marketing%2Ffct_ga_channel_groupings.view.lkml?line=121",
+        "permanent": null,
+        "source_file": "views/1_marts/2_marketing/fct_ga_channel_groupings.view.lkml",
+        "source_file_path": "4_mile_analytics/views/1_marts/2_marketing/fct_ga_channel_groupings.view.lkml",
+        "sql": "${bounces} ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      },
+      "value": ">1500"
+    }
+  },
+  "always_filter": {},
+  "applied_filter_expression": null,
+  "number_format": "1,234.56",
+  "explore": {
+    "name": "google_analytics_channel_groupings",
+    "label": "Google Analytics Channel Groupings",
+    "description": "Facts and general details on GA marketing channel groupings' performance over time"
+  },
+  "timezone": "America/New_York",
+  "data": [
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-05-16"
+      },
+      "dim_date.calendar_month": {
+        "value": "May",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=May&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into May",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "May"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=May&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into May",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "May"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1643,
+        "rendered": "1,643",
+        "links": [
+          {
+            "label": "Show All 1,643",
+            "label_prefix": "Show All",
+            "label_value": "1,643",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-05-16&f[dim_date.calendar_month]=May&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-05-04"
+      },
+      "dim_date.calendar_month": {
+        "value": "May",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=May&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into May",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "May"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=May&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into May",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "May"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1583,
+        "rendered": "1,583",
+        "links": [
+          {
+            "label": "Show All 1,583",
+            "label_prefix": "Show All",
+            "label_value": "1,583",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-05-04&f[dim_date.calendar_month]=May&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-04-26"
+      },
+      "dim_date.calendar_month": {
+        "value": "April",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=April&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into April",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "April"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=April&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into April",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "April"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 2166,
+        "rendered": "2,166",
+        "links": [
+          {
+            "label": "Show All 2,166",
+            "label_prefix": "Show All",
+            "label_value": "2,166",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-04-26&f[dim_date.calendar_month]=April&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-04-04"
+      },
+      "dim_date.calendar_month": {
+        "value": "April",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=April&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into April",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "April"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=April&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into April",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "April"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1567,
+        "rendered": "1,567",
+        "links": [
+          {
+            "label": "Show All 1,567",
+            "label_prefix": "Show All",
+            "label_value": "1,567",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-04-04&f[dim_date.calendar_month]=April&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-03-23"
+      },
+      "dim_date.calendar_month": {
+        "value": "March",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=March&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into March",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "March"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=March&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into March",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "March"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1561,
+        "rendered": "1,561",
+        "links": [
+          {
+            "label": "Show All 1,561",
+            "label_prefix": "Show All",
+            "label_value": "1,561",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-03-23&f[dim_date.calendar_month]=March&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2017-01-24"
+      },
+      "dim_date.calendar_month": {
+        "value": "January",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=January&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into January",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "January"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=January&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into January",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "January"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1792,
+        "rendered": "1,792",
+        "links": [
+          {
+            "label": "Show All 1,792",
+            "label_prefix": "Show All",
+            "label_value": "1,792",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2017-01-24&f[dim_date.calendar_month]=January&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-12-05"
+      },
+      "dim_date.calendar_month": {
+        "value": "December",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1874,
+        "rendered": "1,874",
+        "links": [
+          {
+            "label": "Show All 1,874",
+            "label_prefix": "Show All",
+            "label_value": "1,874",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-12-05&f[dim_date.calendar_month]=December&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-12-02"
+      },
+      "dim_date.calendar_month": {
+        "value": "December",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1682,
+        "rendered": "1,682",
+        "links": [
+          {
+            "label": "Show All 1,682",
+            "label_prefix": "Show All",
+            "label_value": "1,682",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-12-02&f[dim_date.calendar_month]=December&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-12-01"
+      },
+      "dim_date.calendar_month": {
+        "value": "December",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=December&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into December",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "December"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1875,
+        "rendered": "1,875",
+        "links": [
+          {
+            "label": "Show All 1,875",
+            "label_prefix": "Show All",
+            "label_value": "1,875",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-12-01&f[dim_date.calendar_month]=December&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-30"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 2023,
+        "rendered": "2,023",
+        "links": [
+          {
+            "label": "Show All 2,023",
+            "label_prefix": "Show All",
+            "label_value": "2,023",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-30&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-29"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1974,
+        "rendered": "1,974",
+        "links": [
+          {
+            "label": "Show All 1,974",
+            "label_prefix": "Show All",
+            "label_value": "1,974",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-29&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-28"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1995,
+        "rendered": "1,995",
+        "links": [
+          {
+            "label": "Show All 1,995",
+            "label_prefix": "Show All",
+            "label_value": "1,995",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-28&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-27"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1539,
+        "rendered": "1,539",
+        "links": [
+          {
+            "label": "Show All 1,539",
+            "label_prefix": "Show All",
+            "label_value": "1,539",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-27&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-26"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1561,
+        "rendered": "1,561",
+        "links": [
+          {
+            "label": "Show All 1,561",
+            "label_prefix": "Show All",
+            "label_value": "1,561",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-26&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-25"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1783,
+        "rendered": "1,783",
+        "links": [
+          {
+            "label": "Show All 1,783",
+            "label_prefix": "Show All",
+            "label_value": "1,783",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-25&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-24"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1839,
+        "rendered": "1,839",
+        "links": [
+          {
+            "label": "Show All 1,839",
+            "label_prefix": "Show All",
+            "label_value": "1,839",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-24&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-23"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1765,
+        "rendered": "1,765",
+        "links": [
+          {
+            "label": "Show All 1,765",
+            "label_prefix": "Show All",
+            "label_value": "1,765",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-23&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-22"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1859,
+        "rendered": "1,859",
+        "links": [
+          {
+            "label": "Show All 1,859",
+            "label_prefix": "Show All",
+            "label_value": "1,859",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-22&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-21"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1911,
+        "rendered": "1,911",
+        "links": [
+          {
+            "label": "Show All 1,911",
+            "label_prefix": "Show All",
+            "label_value": "1,911",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-21&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-18"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1776,
+        "rendered": "1,776",
+        "links": [
+          {
+            "label": "Show All 1,776",
+            "label_prefix": "Show All",
+            "label_value": "1,776",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-18&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-17"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1833,
+        "rendered": "1,833",
+        "links": [
+          {
+            "label": "Show All 1,833",
+            "label_prefix": "Show All",
+            "label_value": "1,833",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-17&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-16"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 2009,
+        "rendered": "2,009",
+        "links": [
+          {
+            "label": "Show All 2,009",
+            "label_prefix": "Show All",
+            "label_value": "2,009",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-16&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-15"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 2092,
+        "rendered": "2,092",
+        "links": [
+          {
+            "label": "Show All 2,092",
+            "label_prefix": "Show All",
+            "label_value": "2,092",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-15&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-14"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 2061,
+        "rendered": "2,061",
+        "links": [
+          {
+            "label": "Show All 2,061",
+            "label_prefix": "Show All",
+            "label_value": "2,061",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-14&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "dim_date.calendar_date": {
+        "value": "2016-11-13"
+      },
+      "dim_date.calendar_month": {
+        "value": "November",
+        "links": [
+          {
+            "label": "by Week of Month",
+            "label_prefix": "by",
+            "label_value": "Week of Month",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.week_of_month,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          },
+          {
+            "label": "by      Calendar Date",
+            "label_prefix": "by",
+            "label_value": "     Calendar Date",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=dim_date.calendar_date,dim_date.calendar_date,fct_ga_channel_groupings.total_bounces&f[fct_ga_channel_groupings.total_bounces]=%3E1500&f[dim_date.calendar_month]=November&sorts=dim_date.calendar_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22custom_color_enabled%22%3Atrue%2C%22show_single_value_title%22%3Atrue%2C%22show_comparison%22%3Afalse%2C%22comparison_type%22%3A%22value%22%2C%22comparison_reverse_colors%22%3Afalse%2C%22show_comparison_label%22%3Atrue%2C%22enable_conditional_formatting%22%3Afalse%2C%22conditional_formatting_include_totals%22%3Afalse%2C%22conditional_formatting_include_nulls%22%3Afalse%2C%22type%22%3A%22single_value%22%2C%22show_view_names%22%3Afalse%2C%22show_row_numbers%22%3Atrue%2C%22transpose%22%3Afalse%2C%22truncate_text%22%3Atrue%2C%22hide_totals%22%3Afalse%2C%22hide_row_totals%22%3Afalse%2C%22size_to_fit%22%3Atrue%2C%22table_theme%22%3A%22white%22%2C%22limit_displayed_rows%22%3Afalse%2C%22header_text_alignment%22%3A%22left%22%2C%22header_font_size%22%3A12%2C%22rows_font_size%22%3A12%2C%22defaults_version%22%3A1%2C%22series_types%22%3A%7B%7D%2C%22hidden_pivots%22%3A%7B%7D%7D&dynamic_fields=%5B%5D",
+            "type": "drill",
+            "type_label": "Drill into November",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "November"
+          }
+        ]
+      },
+      "fct_ga_channel_groupings.total_bounces": {
+        "value": 1518,
+        "rendered": "1,518",
+        "links": [
+          {
+            "label": "Show All 1,518",
+            "label_prefix": "Show All",
+            "label_value": "1,518",
+            "url": "/explore/4_mile_analytics/google_analytics_channel_groupings?fields=fct_ga_channel_groupings.channel_grouping,fct_ga_channel_groupings.visit_date,fct_ga_channel_groupings.time_on_site,fct_ga_channel_groupings.time_on_screen,fct_ga_channel_groupings.hits,fct_ga_channel_groupings.bounces,fct_ga_channel_groupings.visits,fct_ga_channel_groupings.new_visits,fct_ga_channel_groupings.transactions,fct_ga_channel_groupings.transaction_revenue,fct_ga_channel_groupings.page_views,fct_ga_channel_groupings.screen_views,fct_ga_channel_groupings.unique_screen_views&f[dim_date.calendar_date]=2016-11-13&f[dim_date.calendar_month]=November&dynamic_fields=%5B%5D&query_timezone=America%2FNew_York&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    }
+  ],
+  "drill_menu_build_time": 0.16584700000000002,
+  "has_subtotals": false
+}

@@ -1,0 +1,280 @@
+{
+  "id": "06d1e261065d37fab50566887bd47358",
+  "supports_pivot_in_db": true,
+  "null_sort_treatment": "low",
+  "from_cache": false,
+  "expired": false,
+  "ran_at": "2023-03-14T14:30:55+00:00",
+  "aggregate_table_used_info": null,
+  "runtime": "0.490",
+  "added_params": {
+    "query_timezone": "America/Los_Angeles"
+  },
+  "forecast_result": null,
+  "dialect_specific_metadata": {
+    "total_bytes_processed": 0,
+    "backend_cache_hit": true,
+    "bi_engine_mode": null,
+    "bi_engine_reasons": null,
+    "bigquery_job_id": "sandbox-trials:US.job_Ol_l3CpyOGfPf9GD3MBxlQtodrZ0"
+  },
+  "sql": "WITH fruit_basket AS (select \"apple\" as fruit_type,\"red\" as color,true as is_round, 1.25 as price_per_pound, 0.6 as weight, 0.75 as price\n    union all\n    select \"apple\" as fruit_type, \"red\" as color, true as is_round, 1.25 as price_per_pound, 0.55 as weight, 0.69 as price\n    union all\n    select \"apple\" as fruit_type, \"green\" as color, true as is_round, 1.15 as price_per_pound, 0.4 as weight, 0.46 as price\n    union all\n    select \"banana\" as fruit_type, \"yellow\" as color, false as is_round, 0.75 as price_per_pound, 0.7 as weight, 0.53 as price\n    union all\n    select \"banana\" as fruit_type, \"yellow\" as color, false as is_round, 0.75 as price_per_pound, 0.75 as weight, 0.56 as price\n    union all\n    select \"orange\" as fruit_type, \"orange\" as color, true as is_round, 1.45 as price_per_pound, 0.5 as weight, 0.73 as price\n    union all\n    select \"orange\" as fruit_type, \"orange\" as color, true as is_round, 1.45 as price_per_pound, 0.45 as weight, 0.65 as price\n    union all\n    select \"lemon\" as fruit_type, \"yellow\" as color, false as is_round, 2.25 as price_per_pound, 0.2 as weight, 0.45 as price\n    union all\n    select \"lemon\" as fruit_type, \"yellow\" as color, false as is_round, 2.25 as price_per_pound, 0.22 as weight, 0.50 as price\n    union all\n    select \"lemon\" as fruit_type,\"yellow\" as color,false as is_round,2.25 as price_per_pound,0.19 as weight,0.43 as price\n    union all\n    select \"lime\" as fruit_type,\"green\" as color,false as is_round,2.40 as price_per_pound,0.18 as weight,0.43 as price\n    union all\n    select \"lime\" as fruit_type,\"green\" as color,false as is_round,2.40 as price_per_pound,0.17 as weight,0.41 as price\n    )\nSELECT\n    fruit_basket.fruit_type  AS fruit_basket_fruit_type,\n    COUNT(*) AS fruit_basket_count,\n    COALESCE(SUM(fruit_basket.price ), 0) AS fruit_basket_total_price\nFROM fruit_basket\nGROUP BY\n    1\nORDER BY\n    2 DESC\nLIMIT 500",
+  "sql_explain": null,
+  "fields": {
+    "measures": [
+      {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 6,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "Fruit Basket Count",
+        "label_from_parameter": null,
+        "label_short": "Count",
+        "map_layer": null,
+        "name": "fruit_basket.count",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "count",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": null,
+        "view": "fruit_basket",
+        "view_label": "Fruit Basket",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "fruit_basket",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Count",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_demonstrations",
+        "scope": "fruit_basket",
+        "suggest_dimension": "fruit_basket.count",
+        "suggest_explore": "fruit_basket",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_demonstrations/files/views%2Ffruit_basket.view.lkml?line=72",
+        "permanent": null,
+        "source_file": "views/fruit_basket.view.lkml",
+        "source_file_path": "4_mile_demonstrations/views/fruit_basket.view.lkml",
+        "sql": null,
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0,
+        "sorted": {
+          "sort_index": 0,
+          "desc": true,
+          "pivot_index": 0
+        }
+      },
+      {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 6,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "Fruit Basket Total Price",
+        "label_from_parameter": null,
+        "label_short": "Total Price",
+        "map_layer": null,
+        "name": "fruit_basket.total_price",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "sum",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": "$#,##0.00",
+        "view": "fruit_basket",
+        "view_label": "Fruit Basket",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "fruit_basket",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Total Price",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_demonstrations",
+        "scope": "fruit_basket",
+        "suggest_dimension": "fruit_basket.total_price",
+        "suggest_explore": "fruit_basket",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_demonstrations/files/views%2Ffruit_basket.view.lkml?line=61",
+        "permanent": null,
+        "source_file": "views/fruit_basket.view.lkml",
+        "source_file_path": "4_mile_demonstrations/views/fruit_basket.view.lkml",
+        "sql": "${price} ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      }
+    ],
+    "dimensions": [
+      {
+        "align": "left",
+        "can_filter": true,
+        "category": "dimension",
+        "default_filter_value": null,
+        "description": "",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 6,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": false,
+        "label": "Fruit Basket Fruit Type",
+        "label_from_parameter": null,
+        "label_short": "Fruit Type",
+        "map_layer": null,
+        "name": "fruit_basket.fruit_type",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "string",
+        "user_attribute_filter_types": ["string", "advanced_filter_string"],
+        "value_format": null,
+        "view": "fruit_basket",
+        "view_label": "Fruit Basket",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "fruit_basket",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Fruit Type",
+        "measure": false,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "4_mile_demonstrations",
+        "scope": "fruit_basket",
+        "suggest_dimension": "fruit_basket.fruit_type",
+        "suggest_explore": "fruit_basket",
+        "suggestable": true,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/4_mile_demonstrations/files/views%2Ffruit_basket.view.lkml?line=31",
+        "permanent": null,
+        "source_file": "views/fruit_basket.view.lkml",
+        "source_file_path": "4_mile_demonstrations/views/fruit_basket.view.lkml",
+        "sql": "${TABLE}.fruit_type ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      }
+    ],
+    "table_calculations": [],
+    "pivots": []
+  },
+  "fill_fields": [],
+  "has_totals": false,
+  "has_row_totals": false,
+  "applied_filters": {},
+  "applied_filter_expression": null,
+  "number_format": "1,234.56",
+  "explore": {
+    "name": "fruit_basket",
+    "label": "Fruit Basket",
+    "description": null
+  },
+  "timezone": "America/Los_Angeles",
+  "data": [
+    {
+      "fruit_basket.fruit_type": {
+        "value": "apple"
+      },
+      "fruit_basket.count": {
+        "value": 3
+      },
+      "fruit_basket.total_price": {
+        "value": 1.9,
+        "rendered": "$1.90"
+      }
+    },
+    {
+      "fruit_basket.fruit_type": {
+        "value": "lemon"
+      },
+      "fruit_basket.count": {
+        "value": 3
+      },
+      "fruit_basket.total_price": {
+        "value": 1.38,
+        "rendered": "$1.38"
+      }
+    },
+    {
+      "fruit_basket.fruit_type": {
+        "value": "orange"
+      },
+      "fruit_basket.count": {
+        "value": 2
+      },
+      "fruit_basket.total_price": {
+        "value": 1.38,
+        "rendered": "$1.38"
+      }
+    },
+    {
+      "fruit_basket.fruit_type": {
+        "value": "lime"
+      },
+      "fruit_basket.count": {
+        "value": 2
+      },
+      "fruit_basket.total_price": {
+        "value": 0.84,
+        "rendered": "$0.84"
+      }
+    },
+    {
+      "fruit_basket.fruit_type": {
+        "value": "banana"
+      },
+      "fruit_basket.count": {
+        "value": 2
+      },
+      "fruit_basket.total_price": {
+        "value": 1.09,
+        "rendered": "$1.09"
+      }
+    }
+  ],
+  "drill_menu_build_time": 0.199243,
+  "has_subtotals": false
+}

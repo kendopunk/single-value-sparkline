@@ -1,0 +1,1737 @@
+{
+  "id": "cc92bc609f4453ebcc19eac06415c4bf",
+  "truncated": true,
+  "supports_pivot_in_db": true,
+  "null_sort_treatment": "low",
+  "from_cache": true,
+  "expired": false,
+  "ran_at": "2023-03-22T18:07:02+00:00",
+  "aggregate_table_used_info": null,
+  "forecast_result": null,
+  "sql": "-- raw sql results do not include filled-in values for 'event.created_date'\n\n\nSELECT\n    (DATE(event.CREATED_AT )) AS `event.created_date`,\n    COUNT(DISTINCT `group`.id) AS `group.count`,\n    COUNT(DISTINCT model_set.id) AS `model_set.count`\nFROM event\nLEFT JOIN user  AS user ON event.user_id = user.id\nLEFT JOIN user_facts_role ON user.id = user_facts_role.user_id\nLEFT JOIN role ON user_facts_role.role_id = role.id\nLEFT JOIN model_set ON role.model_set_id = model_set.id\nLEFT JOIN group_user ON user.id = group_user.user_id\nLEFT JOIN  `group`   AS `group` ON `group`.id = group_user.group_id\nGROUP BY\n    1\nORDER BY\n    (DATE(event.CREATED_AT )) DESC\nLIMIT 25",
+  "sql_explain": "EXPLAIN -- raw sql results do not include filled-in values for 'event.created_date'\n\n\nSELECT\n    (DATE(event.CREATED_AT )) AS `event.created_date`,\n    COUNT(DISTINCT `group`.id) AS `group.count`,\n    COUNT(DISTINCT model_set.id) AS `model_set.count`\nFROM event\nLEFT JOIN user  AS user ON event.user_id = user.id\nLEFT JOIN user_facts_role ON user.id = user_facts_role.user_id\nLEFT JOIN role ON user_facts_role.role_id = role.id\nLEFT JOIN model_set ON role.model_set_id = model_set.id\nLEFT JOIN group_user ON user.id = group_user.user_id\nLEFT JOIN  `group`   AS `group` ON `group`.id = group_user.group_id\nGROUP BY\n    1\nORDER BY\n    (DATE(event.CREATED_AT )) DESC\nLIMIT 25",
+  "fields": {
+    "measures": [
+      {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "A simple count of Group IDs.",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "Group Count",
+        "label_from_parameter": null,
+        "label_short": "Count",
+        "map_layer": null,
+        "name": "group.count",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "count",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": null,
+        "view": "group",
+        "view_label": "Group",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "group",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Count",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "system__activity",
+        "scope": "group",
+        "suggest_dimension": "group.count",
+        "suggest_explore": "event",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/system__activity/files/group.view.lkml?line=45",
+        "permanent": null,
+        "source_file": "group.view.lkml",
+        "source_file_path": "system__activity/group.view.lkml",
+        "sql": null,
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      },
+      {
+        "align": "right",
+        "can_filter": true,
+        "category": "measure",
+        "default_filter_value": null,
+        "description": "Simple count of Model Set IDs.",
+        "enumerations": null,
+        "field_group_label": null,
+        "fill_style": null,
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": true,
+        "label": "Model Set Count",
+        "label_from_parameter": null,
+        "label_short": "Count",
+        "map_layer": null,
+        "name": "model_set.count",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "count_distinct",
+        "user_attribute_filter_types": ["number", "advanced_filter_number"],
+        "value_format": null,
+        "view": "model_set",
+        "view_label": "Model Set",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "model_set",
+        "dimension_group": null,
+        "error": null,
+        "field_group_variant": "Count",
+        "measure": true,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "system__activity",
+        "scope": "model_set",
+        "suggest_dimension": "model_set.count",
+        "suggest_explore": "event",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": false,
+        "can_time_filter": false,
+        "time_interval": null,
+        "lookml_link": "/projects/system__activity/files/model_set.view.lkml?line=56",
+        "permanent": null,
+        "source_file": "model_set.view.lkml",
+        "source_file_path": "system__activity/model_set.view.lkml",
+        "sql": null,
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0
+      }
+    ],
+    "dimensions": [
+      {
+        "align": "left",
+        "can_filter": true,
+        "category": "dimension",
+        "default_filter_value": null,
+        "description": "The time (in UTC) an event was created",
+        "enumerations": null,
+        "field_group_label": "Created Date",
+        "fill_style": "range",
+        "fiscal_month_offset": 0,
+        "has_allowed_values": false,
+        "hidden": false,
+        "is_filter": false,
+        "is_numeric": false,
+        "label": "Event Created Date",
+        "label_from_parameter": null,
+        "label_short": "Created Date",
+        "map_layer": null,
+        "name": "event.created_date",
+        "strict_value_format": false,
+        "requires_refresh_on_sort": false,
+        "sortable": true,
+        "suggestions": null,
+        "tags": [],
+        "type": "date_date",
+        "user_attribute_filter_types": ["datetime", "advanced_filter_datetime"],
+        "value_format": null,
+        "view": "event",
+        "view_label": "Event",
+        "dynamic": false,
+        "week_start_day": "monday",
+        "original_view": "event",
+        "dimension_group": "event.created",
+        "error": null,
+        "field_group_variant": "Date",
+        "measure": false,
+        "parameter": false,
+        "primary_key": false,
+        "project_name": "system__activity",
+        "scope": "event",
+        "suggest_dimension": "event.created_date",
+        "suggest_explore": "event",
+        "suggestable": false,
+        "is_fiscal": false,
+        "is_timeframe": true,
+        "can_time_filter": false,
+        "time_interval": {
+          "name": "day",
+          "count": 1
+        },
+        "lookml_link": "/projects/system__activity/files/event.view.lkml?line=14",
+        "permanent": null,
+        "source_file": "event.view.lkml",
+        "source_file_path": "system__activity/event.view.lkml",
+        "sql": "${TABLE}.CREATED_AT ",
+        "sql_case": null,
+        "filters": null,
+        "times_used": 0,
+        "sorted": {
+          "sort_index": 0,
+          "desc": true
+        }
+      }
+    ],
+    "table_calculations": [],
+    "pivots": []
+  },
+  "fill_fields": ["event.created_date"],
+  "has_totals": false,
+  "has_row_totals": false,
+  "applied_filters": {},
+  "applied_filter_expression": null,
+  "number_format": "1,234.56",
+  "explore": {
+    "name": "event",
+    "label": "Event",
+    "description": null
+  },
+  "timezone": "America/Los_Angeles",
+  "data": [
+    {
+      "event.created_date": {
+        "value": "2023-03-22",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-22&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-22",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-22"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-22&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-22",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-22"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-22&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-22",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-22"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-22&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-22&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-21",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-21&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-21",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-21"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-21&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-21",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-21"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-21&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-21",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-21"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-21&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-21&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-20",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-20&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-20",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-20"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-20&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-20",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-20"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-20&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-20",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-20"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-20&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-20&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-19",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-19&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-19",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-19"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-19&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-19",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-19"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-19&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-19",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-19"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 2,
+        "links": [
+          {
+            "label": "Show All 2",
+            "label_prefix": "Show All",
+            "label_value": "2",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-19&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 1,
+        "links": [
+          {
+            "label": "Show All 1",
+            "label_prefix": "Show All",
+            "label_value": "1",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-19&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-18",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-18&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-18",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-18"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-18&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-18",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-18"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-18&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-18",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-18"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-18&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-18&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-17",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-17&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-17",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-17"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-17&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-17",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-17"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-17&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-17",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-17"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-17&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-17&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-16",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-16&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-16",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-16"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-16&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-16",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-16"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-16&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-16",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-16"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 12,
+        "links": [
+          {
+            "label": "Show All 12",
+            "label_prefix": "Show All",
+            "label_value": "12",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-16&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-16&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-15",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-15&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-15",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-15"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-15&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-15",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-15"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-15&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-15",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-15"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 14,
+        "links": [
+          {
+            "label": "Show All 14",
+            "label_prefix": "Show All",
+            "label_value": "14",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-15&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-15&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-14",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-14&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-14",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-14"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-14&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-14",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-14"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-14&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-14",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-14"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 17,
+        "links": [
+          {
+            "label": "Show All 17",
+            "label_prefix": "Show All",
+            "label_value": "17",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-14&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-14&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-13",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-13&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-13",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-13"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-13&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-13",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-13"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-13&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-13",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-13"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 12,
+        "links": [
+          {
+            "label": "Show All 12",
+            "label_prefix": "Show All",
+            "label_value": "12",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-13&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-13&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-12",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-12&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-12",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-12"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-12&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-12",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-12"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-12&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-12",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-12"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-12&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-12&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-11",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-11&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-11",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-11"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-11&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-11",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-11"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-11&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-11",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-11"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 2,
+        "links": [
+          {
+            "label": "Show All 2",
+            "label_prefix": "Show All",
+            "label_value": "2",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-11&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 1,
+        "links": [
+          {
+            "label": "Show All 1",
+            "label_prefix": "Show All",
+            "label_value": "1",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-11&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-10",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-10&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-10",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-10"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-10&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-10",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-10"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-10&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-10",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-10"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 12,
+        "links": [
+          {
+            "label": "Show All 12",
+            "label_prefix": "Show All",
+            "label_value": "12",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-10&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-10&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-09",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-09&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-09",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-09"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-09&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-09",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-09"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-09&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-09",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-09"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 17,
+        "links": [
+          {
+            "label": "Show All 17",
+            "label_prefix": "Show All",
+            "label_value": "17",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-09&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-09&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-08",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-08&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-08",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-08"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-08&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-08",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-08"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-08&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-08",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-08"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 11,
+        "links": [
+          {
+            "label": "Show All 11",
+            "label_prefix": "Show All",
+            "label_value": "11",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-08&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-08&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-07",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-07&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-07",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-07"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-07&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-07",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-07"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-07&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-07",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-07"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-07&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-07&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-06",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-06&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-06",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-06"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-06&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-06",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-06"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-06&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-06",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-06"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-06&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-06&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-05",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-05&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-05",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-05"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-05&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-05",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-05"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-05&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-05",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-05"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 2,
+        "links": [
+          {
+            "label": "Show All 2",
+            "label_prefix": "Show All",
+            "label_value": "2",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-05&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 1,
+        "links": [
+          {
+            "label": "Show All 1",
+            "label_prefix": "Show All",
+            "label_value": "1",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-05&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-04",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-04&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-04",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-04"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-04&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-04",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-04"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-04&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-04",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-04"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 2,
+        "links": [
+          {
+            "label": "Show All 2",
+            "label_prefix": "Show All",
+            "label_value": "2",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-04&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 1,
+        "links": [
+          {
+            "label": "Show All 1",
+            "label_prefix": "Show All",
+            "label_value": "1",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-04&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-03",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-03&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-03",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-03"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-03&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-03",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-03"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-03&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-03",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-03"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 12,
+        "links": [
+          {
+            "label": "Show All 12",
+            "label_prefix": "Show All",
+            "label_value": "12",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-03&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-03&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-02",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-02&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-02",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-02"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-02&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-02",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-02"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-02&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-02",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-02"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 12,
+        "links": [
+          {
+            "label": "Show All 12",
+            "label_prefix": "Show All",
+            "label_value": "12",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-02&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-02&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-03-01",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-03-01&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-01",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-01"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-03-01&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-01",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-01"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-03-01&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-03-01",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-03-01"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-03-01&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-03-01&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-02-28",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-02-28&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-28",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-28"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-02-28&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-28",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-28"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-02-28&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-28",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-28"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 13,
+        "links": [
+          {
+            "label": "Show All 13",
+            "label_prefix": "Show All",
+            "label_value": "13",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-02-28&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-02-28&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-02-27",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-02-27&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-27",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-27"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-02-27&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-27",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-27"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-02-27&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-27",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-27"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-02-27&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-02-27&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    },
+    {
+      "event.created_date": {
+        "value": "2023-02-26",
+        "links": [
+          {
+            "label": "by Created Hour",
+            "label_prefix": "by",
+            "label_value": "Created Hour",
+            "url": "/explore/system__activity/event?fields=event.created_hour,group.count,model_set.count&f[event.created_date]=2023-02-26&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-26",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-26"
+          },
+          {
+            "label": "by Created Minute",
+            "label_prefix": "by",
+            "label_value": "Created Minute",
+            "url": "/explore/system__activity/event?fields=event.created_minute,group.count,model_set.count&f[event.created_date]=2023-02-26&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-26",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-26"
+          },
+          {
+            "label": "by Created Time",
+            "label_prefix": "by",
+            "label_value": "Created Time",
+            "url": "/explore/system__activity/event?fields=event.created_time,group.count,model_set.count&f[event.created_date]=2023-02-26&sorts=event.created_date desc&limit=500&column_limit=50&query_timezone=America%2FNew_York&vis=%7B%22hidden_pivots%22%3A%7B%7D%7D",
+            "type": "drill",
+            "type_label": "Drill into 2023-02-26",
+            "type_label_prefix": "Drill into",
+            "type_label_value": "2023-02-26"
+          }
+        ]
+      },
+      "group.count": {
+        "value": 9,
+        "links": [
+          {
+            "label": "Show All 9",
+            "label_prefix": "Show All",
+            "label_value": "9",
+            "url": "/explore/system__activity/event?fields=group.id,group.name,user.count,group.edit_link,group.include_by_default,group.externally_managed,group.external_group_id&f[event.created_date]=2023-02-26&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      },
+      "model_set.count": {
+        "value": 4,
+        "links": [
+          {
+            "label": "Show All 4",
+            "label_prefix": "Show All",
+            "label_value": "4",
+            "url": "/explore/system__activity/event?fields=model_set.id,model_set.name,role.count&f[event.created_date]=2023-02-26&limit=500",
+            "type": "measure_default"
+          }
+        ]
+      }
+    }
+  ],
+  "drill_menu_build_time": 0.528161,
+  "has_subtotals": false
+}
