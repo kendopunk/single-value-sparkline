@@ -33,10 +33,6 @@ export default {
       type: 'number',
       name: 'Raw Decimal Value'
     },
-    queryId: {
-      type: 'string',
-      name: 'Looker Query ID'
-    },
     rawValue: {
       type: 'string',
       name: 'Raw Value'
