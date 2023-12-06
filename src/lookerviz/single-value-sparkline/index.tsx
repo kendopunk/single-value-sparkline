@@ -20,16 +20,16 @@ declare const looker: Looker
 const viz: VisualizationDefinitionExtended = {
   options: {
     percentCalculation: {
-      label: 'Percent Based On',
+      label: 'Base Percent Calculation On:',
       display: 'select',
       section: 'Data',
       type: 'string',
       default: 'secondfirst',
       values: [
-        { 'second value / first value': 'secondfirst' },
-        { 'mean value / first value': 'meanfirst' },
+        { 'second row vs first row ': 'secondfirst' },
+        { 'mean value vs first row': 'meanfirst' },
         {
-          'last value / first value': 'lastfirst'
+          'last row vs first row': 'lastfirst'
         }
       ]
     },

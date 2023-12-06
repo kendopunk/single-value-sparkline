@@ -71,13 +71,6 @@ async function fetchEmbedSSOUrl(requestConfig: IEmbedSsoParams) {
 async function runLookerQuery(queryId: string): Promise<VisQueryResponse | null> {
   let accessToken: string | null = null
 
-  if (!queryId) {
-    return {
-      data: [],
-      fields: {}
-    }
-  }
-
   // auth
   try {
     const response = await lookerLoginPromise(

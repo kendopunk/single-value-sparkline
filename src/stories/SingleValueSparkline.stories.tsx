@@ -7,8 +7,8 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import SingleValueSparkline, { SingleValueSparklineProps } from '../components/SingleValueSparkline'
 import { StyledWrapper } from './utils/StyledWrapper'
-import withLookerDataConversion from '../hoc/withLookerDataConversion'
-import { runLookerQuery } from './utils/storyutils'
+// import withLookerDataConversion from '../hoc/withLookerDataConversion'
+// import { runLookerQuery } from './utils/storyutils'
 
 export default {
   title: 'D3/Single Value Sparkline',
@@ -32,6 +32,10 @@ export default {
     percentRaw: {
       type: 'number',
       name: 'Raw Decimal Value'
+    },
+    queryId: {
+      type: 'string',
+      name: 'Looker Query ID'
     },
     rawValue: {
       type: 'string',
