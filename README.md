@@ -70,7 +70,7 @@ It will expire on 20 June 2025 🗓
 
 ```
 $> cd build
-$> npx -y http-server --cors -p 5150  -S -C ~/path/to/your/cert.pem -K ~/path/to/your/key.pem
+$> npx -y http-server --cors -p 5150  -S -C ~/path/to/your/cert.pem -K ~/path/to/your/key.pem  # long live EVH
 ```
 
 ---
