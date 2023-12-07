@@ -59,22 +59,24 @@ export default function Sparkline({
     const gSel = svg.select('g.trendline')
     gSel.selectAll('line').remove()
 
-    gSel
-      .append('line')
-      .style('stroke', '#ddd')
-      .style('stroke-width', 1)
-      .attr('x1', 0)
-      .attr('x2', WIDTH)
-      .attr('y1', () => {
-        if (trendlineConfig === 'lastfirst') {
-          return yScale(leftValue)
-        } else if (trendlineConfig === 'meanfirst') {
-          return yScale(meanValue)
-        } else {
-          return yScale(nextToRightValue)
-        }
-      })
-      .attr('y2', () => yScale(rightValue))
+    if (trendlineConfig) {
+      gSel
+        .append('line')
+        .style('stroke', '#ddd')
+        .style('stroke-width', 1)
+        .attr('x1', 0)
+        .attr('x2', WIDTH)
+        .attr('y1', () => {
+          if (trendlineConfig === 'lastfirst') {
+            return yScale(leftValue)
+          } else if (trendlineConfig === 'meanfirst') {
+            return yScale(meanValue)
+          } else {
+            return yScale(nextToRightValue)
+          }
+        })
+        .attr('y2', () => yScale(rightValue))
+    }
   }
 
   function handleSparkline(svg: Selection<SVGSVGElement | null, any, null, undefined>): void {
@@ -105,16 +107,14 @@ export default function Sparkline({
    */
   function draw(svg: Selection<SVGSVGElement | null, any, null, undefined>): void {
     handleSparkline(svg)
-    if (trendlineConfig) {
-      handleTrendline(svg)
-    }
+    handleTrendline(svg)
   }
 
   useEffect(() => {
     const svg: Selection<SVGSVGElement | null, any, null, undefined> = select(svgRef.current)
     draw(svg)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, color])
+  }, [data, color, trendlineConfig])
 
   return (
     <svg

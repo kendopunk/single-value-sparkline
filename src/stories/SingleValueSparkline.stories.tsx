@@ -7,8 +7,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import SingleValueSparkline, { SingleValueSparklineProps } from '../components/SingleValueSparkline'
 import { StyledWrapper } from './utils/StyledWrapper'
-// import withLookerDataConversion from '../hoc/withLookerDataConversion'
-// import { runLookerQuery } from './utils/storyutils'
 
 export default {
   title: 'D3/Single Value Sparkline',
@@ -47,6 +45,14 @@ export default {
     title: {
       type: 'string',
       name: 'Title'
+    },
+    trendlineConfig: {
+      name: 'Trendline Config',
+      control: 'select',
+      value: null,
+      description:
+        '"secondfirst" = second from right value vs far right value, "meanfirst" = mean value vs far right value, "lastfirst" = leftmost value vs right value',
+      options: ['secondfirst', 'meanfirst', 'lastfirst', null]
     }
   }
 } as ComponentMeta<typeof SingleValueSparkline>
@@ -54,7 +60,7 @@ export default {
 const Template: ComponentStory<typeof SingleValueSparkline> = (args: SingleValueSparklineProps) => {
   return (
     <StyledWrapper>
-      <SingleValueSparkline {...args} />
+      <SingleValueSparkline {...args} trendlineConfig={args?.trendlineConfig ?? null} />
     </StyledWrapper>
   )
 }
@@ -69,6 +75,10 @@ const mockSparklineData = [...Array(10).keys()].map((m: number) => {
     y: Math.random() * 10
   }
 })
+
+Basic.argTypes = {
+  trendlineConfig: { table: { disabled: true } }
+}
 
 Basic.args = {
   note: 'My sample note',
