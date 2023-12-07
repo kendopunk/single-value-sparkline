@@ -31,7 +31,15 @@ const viz: VisualizationDefinitionExtended = {
         {
           'last row vs first row': 'lastfirst'
         }
-      ]
+      ],
+      order: 3
+    },
+    trendline: {
+      type: 'boolean',
+      default: false,
+      label: 'Trendline',
+      section: 'Data',
+      order: 4
     },
     title: {
       label: 'Title',
@@ -141,7 +149,8 @@ const viz: VisualizationDefinitionExtended = {
       percentDecimals,
       sparklineColor,
       title,
-      targetColumn
+      targetColumn,
+      trendline
     } = config
 
     /**
@@ -225,6 +234,7 @@ const viz: VisualizationDefinitionExtended = {
           percentDecimals={+percentDecimals}
           sparklineColor={sparklineColor}
           title={useTitle}
+          trendlineConfig={trendline ? percentCalculation : null}
         />
       )
     }

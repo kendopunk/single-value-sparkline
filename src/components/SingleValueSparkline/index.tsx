@@ -75,6 +75,7 @@ export type SingleValueSparklineProps = {
   sparklineData: GenericXYValueData | null
   sparklineColor?: string
   title?: string
+  trendlineConfig?: 'secondfirst' | 'meanfirst' | 'lastfirst' | null
 }
 
 export default function SingleValueSparkline({
@@ -85,7 +86,8 @@ export default function SingleValueSparkline({
   rawValue,
   sparklineData = [],
   sparklineColor = '#3399ff',
-  title
+  title,
+  trendlineConfig = null
 }: SingleValueSparklineProps): JSX.Element | null {
   const { width, ref } = useResizeDetector({
     handleHeight: false,
@@ -161,7 +163,12 @@ export default function SingleValueSparkline({
           {/* optional sparkline */}
           {sparklineData && sparklineData.length > 0 && (
             <StyledSparklineContainer>
-              <Sparkline data={sparklineData} color={sparklineColor} width={width ?? 150} />
+              <Sparkline
+                data={sparklineData}
+                color={sparklineColor}
+                width={width ?? 150}
+                trendlineConfig={trendlineConfig}
+              />
             </StyledSparklineContainer>
           )}
         </FlexWrapperInner>

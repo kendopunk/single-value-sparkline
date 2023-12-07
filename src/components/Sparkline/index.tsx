@@ -11,10 +11,14 @@ export type SparklineProps = {
   data: GenericXYValueData
   width: number
   color?: string
-  height?: number
+  trendlineConfig?: 'secondfirst' | 'meanfirst' | 'lastfirst' | null
 }
 
-export default function Sparkline({ data, color = '#000000' }: SparklineProps): JSX.Element {
+export default function Sparkline({
+  data,
+  color = '#000000',
+  trendlineConfig = null
+}: SparklineProps): JSX.Element {
   const HEIGHT = 50
   const WIDTH = 120
 
@@ -31,6 +35,46 @@ export default function Sparkline({ data, color = '#000000' }: SparklineProps): 
     return scaleLinear()
       .domain([Math.min(0, mn), mx])
       .range([HEIGHT, 0])
+  }
+
+  function handleTrendline(svg: Selection<SVGSVGElement | null, any, null, undefined>): void {
+    const [leftRecord] = data
+    const leftValue = leftRecord?.y ?? 0
+
+    const [nextToRightRecord] = data.slice(-2)
+    const nextToRightValue = nextToRightRecord?.y ?? 0
+
+    const [rightRecord] = data.slice(-1)
+    const rightValue = rightRecord?.y ?? 0
+
+    const meanValue =
+      data
+        .map((m: GenericXYValueElement) => m.y)
+        .filter((f) => f)
+        .reduce((a: number, b: number) => a + b) / data.length
+
+    const yScale: any = setYScale()
+
+    // JRAT
+    const gSel = svg.select('g.trendline')
+    gSel.selectAll('line').remove()
+
+    gSel
+      .append('line')
+      .style('stroke', '#ddd')
+      .style('stroke-width', 1)
+      .attr('x1', 0)
+      .attr('x2', WIDTH)
+      .attr('y1', () => {
+        if (trendlineConfig === 'lastfirst') {
+          return yScale(leftValue)
+        } else if (trendlineConfig === 'meanfirst') {
+          return yScale(meanValue)
+        } else {
+          return yScale(nextToRightValue)
+        }
+      })
+      .attr('y2', () => yScale(rightValue))
   }
 
   function handleSparkline(svg: Selection<SVGSVGElement | null, any, null, undefined>): void {
@@ -61,6 +105,9 @@ export default function Sparkline({ data, color = '#000000' }: SparklineProps): 
    */
   function draw(svg: Selection<SVGSVGElement | null, any, null, undefined>): void {
     handleSparkline(svg)
+    if (trendlineConfig) {
+      handleTrendline(svg)
+    }
   }
 
   useEffect(() => {
@@ -80,6 +127,7 @@ export default function Sparkline({ data, color = '#000000' }: SparklineProps): 
       xmlns="http://www.w3.org/2000/svg"
     >
       <g className="line" />
+      <g className="trendline" />
     </svg>
   )
 }
